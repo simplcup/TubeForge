@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    android:tag="bg">
+
+    <FrameLayout
+        android:id="@+id/page_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include
+            android:id="@+id/page_download"
+            layout="@layout/page_download" />
+
+        <include
+            android:id="@+id/page_queue"
+            layout="@layout/page_queue" />
+
+        <include
+            android:id="@+id/page_history"
+            layout="@layout/page_history" />
+
+        <include
+            android:id="@+id/page_settings"
+            layout="@layout/page_settings" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@color/card"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:tag="nav">
+
+        <LinearLayout
+            android:id="@+id/nav_download"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="navItem">
+
+            <ImageView
+                android:id="@+id/nav_icon_download"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/download"
+                android:src="@drawable/ic_download"
+                android:tag="navIcon" />
+
+            <TextView
+                android:id="@+id/nav_label_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/download"
+                android:textSize="11sp"
+                android:tag="navLabel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_queue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="navItem">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <ImageView
+                    android:id="@+id/nav_icon_queue"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/queue"
+                    android:src="@drawable/ic_queue"
+                    android:tag="navIcon" />
+
+                <TextView
+                    android:id="@+id/nav_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="-6dp"
+                    android:minWidth="17dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@drawable/bg_badge"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text=""
+                    android:textColor="#0B0E14"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/nav_label_queue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/queue"
+                android:textSize="11sp"
+                android:tag="navLabel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_history"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="navItem">
+
+            <ImageView
+                android:id="@+id/nav_icon_history"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/history"
+                android:src="@drawable/ic_history"
+                android:tag="navIcon" />
+
+            <TextView
+                android:id="@+id/nav_label_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/history"
+                android:textSize="11sp"
+                android:tag="navLabel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="navItem">
+
+            <ImageView
+                android:id="@+id/nav_icon_settings"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/settings"
+                android:src="@drawable/ic_settings"
+                android:tag="navIcon" />
+
+            <TextView
+                android:id="@+id/nav_label_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/settings"
+                android:textSize="11sp"
+                android:tag="navLabel" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

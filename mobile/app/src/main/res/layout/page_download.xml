@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:tag="bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            android:tag="title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Paste a link, pick a format, and get your media."
+            android:textSize="13sp"
+            android:tag="muted" />
+
+        <!-- Link entry -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:tag="card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="6dp"
+                android:tag="input">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_link"
+                    android:tag="icon" />
+
+                <EditText
+                    android:id="@+id/dl_url_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/url_hint"
+                    android:imeOptions="actionGo"
+                    android:inputType="textUri"
+                    android:maxLines="1"
+                    android:textColorHint="@color/dim"
+                    android:textSize="13.5sp"
+                    android:autofillHints="none"
+                    android:tag="field" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dl_paste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_ghost"
+                    android:gravity="center"
+                    android:minWidth="84dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/paste"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:tag="ghostButton" />
+
+                <TextView
+                    android:id="@+id/dl_fetch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_primary"
+                    android:gravity="center"
+                    android:minWidth="92dp"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:text="@string/fetch"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:tag="primaryButton" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dl_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:tag="danger"
+            android:textSize="12.5sp"
+            android:visibility="gone" />
+
+        <!-- Empty state -->
+        <LinearLayout
+            android:id="@+id/dl_empty_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:tag="card">
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_input"
+                android:tag="input">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_download"
+                    android:tag="iconAccent" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ready_hint"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:tag="title" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/ready_body"
+                    android:textSize="12sp"
+                    android:tag="muted" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Fetched preview -->
+        <LinearLayout
+            android:id="@+id/dl_preview_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:tag="card"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/dl_thumb"
+                android:layout_width="104dp"
+                android:layout_height="59dp"
+                android:background="@drawable/bg_thumb"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:tag="thumb" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dl_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="—"
+                    android:textSize="13.5sp"
+                    android:textStyle="bold"
+                    android:tag="title" />
+
+                <TextView
+                    android:id="@+id/dl_meta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="11.5sp"
+                    android:tag="muted" />
+
+                <TextView
+                    android:id="@+id/dl_chip_source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_chip"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:tag="accentText" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="0.14"
+            android:text="AUDIO"
+            android:textSize="10.5sp"
+            android:textStyle="bold"
+            android:tag="dim" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/dl_audio_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:letterSpacing="0.14"
+            android:text="VIDEO"
+            android:textSize="10.5sp"
+            android:textStyle="bold"
+            android:tag="dim" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/dl_video_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/dl_quality_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="QUALITY"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:tag="dim" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/dl_quality_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:tag="card">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_folder"
+                android:tag="iconAccent" />
+
+            <TextView
+                android:id="@+id/dl_output"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/save_to"
+                android:textSize="12sp"
+                android:tag="muted" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dl_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="MP3 · 320 kbps · audio only"
+            android:textSize="12.5sp"
+            android:textStyle="bold"
+            android:tag="accentText" />
+
+        <TextView
+            android:id="@+id/dl_download"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_primary"
+            android:gravity="center"
+            android:text="@string/download_btn"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:tag="primaryButton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Runs in the background — track it on the Queue tab."
+            android:textSize="11sp"
+            android:tag="dim" />
+    </LinearLayout>
+</ScrollView>

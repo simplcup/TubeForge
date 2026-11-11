@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:tag="bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            android:tag="title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Make TubeForge feel like yours."
+            android:textSize="12.5sp"
+            android:tag="muted" />
+
+        <!-- Appearance -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:tag="card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="APPEARANCE"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:tag="dim" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Theme"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:tag="title" />
+
+            <LinearLayout
+                android:id="@+id/s_theme_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <!-- Network -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:tag="card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="NETWORK"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:tag="dim" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Proxy"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:tag="title" />
+
+            <EditText
+                android:id="@+id/s_proxy"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_input"
+                android:hint="http://127.0.0.1:8080 or socks5://…"
+                android:imeOptions="actionDone"
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColorHint="@color/dim"
+                android:textSize="13sp"
+                android:autofillHints="none"
+                android:tag="field" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Leave empty to connect directly."
+                android:textSize="11sp"
+                android:tag="dim" />
+        </LinearLayout>
+
+        <!-- Output -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:tag="card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="OUTPUT"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:tag="dim" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Embed thumbnail"
+                    android:textSize="13.5sp"
+                    android:tag="title" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/s_embed_thumb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Embed metadata"
+                    android:textSize="13.5sp"
+                    android:tag="title" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/s_embed_meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Saved to Download/TubeForge, visible to your gallery and file manager."
+                android:textSize="11sp"
+                android:tag="dim" />
+        </LinearLayout>
+
+        <!-- Engine -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:tag="card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="ENGINE"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:tag="dim" />
+
+            <TextView
+                android:id="@+id/s_engine_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="yt-dlp engine · checking…"
+                android:textSize="13.5sp"
+                android:tag="title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="YouTube changes often. Updating yt-dlp fixes most failed downloads."
+                android:textSize="11sp"
+                android:tag="dim" />
+
+            <TextView
+                android:id="@+id/s_update"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_ghost"
+                android:gravity="center"
+                android:text="Update yt-dlp"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:tag="ghostButton" />
+        </LinearLayout>
+
+        <!-- About -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:tag="card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="ABOUT"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:tag="dim" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="TubeForge is free software under the GPL-3.0 and bundles yt-dlp, ffmpeg and other open-source components."
+                android:textSize="11sp"
+                android:tag="dim" />
+
+            <TextView
+                android:id="@+id/s_licences"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_ghost"
+                android:gravity="center"
+                android:text="Open-source licences"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:tag="ghostButton" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/s_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="TubeForge 1.0.0 · Android"
+            android:textSize="11sp"
+            android:tag="dim" />
+    </LinearLayout>
+</ScrollView>

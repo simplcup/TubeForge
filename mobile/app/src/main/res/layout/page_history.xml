@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    android:paddingStart="18dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="18dp"
+    android:tag="bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:tag="title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Finished downloads stay here so you can open them again."
+        android:textSize="12.5sp"
+        android:tag="muted" />
+
+    <TextView
+        android:id="@+id/h_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:textSize="11.5sp"
+        android:tag="dim" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/h_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="12dp"
+        android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/h_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="No finished downloads yet."
+        android:textSize="13sp"
+        android:tag="dim" />
+</LinearLayout>
