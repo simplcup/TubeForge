@@ -1,0 +1,9 @@
+# Runtime
+PySide6-Essentials==6.12.0
+yt-dlp[default]==2026.10.21
+curl_cffi>=0.10,<0.17
+mutagen==1.48.1
+
+# Build-time only
+pyinstaller==6.22.3
+Pillow>=10.0
