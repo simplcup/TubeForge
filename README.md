@@ -41,6 +41,8 @@ target and survives leaving the app.
 
 ## Screenshots
 
+### Desktop (Windows)
+
 | | |
 |:--:|:--:|
 | ![Download page](docs/desktop-download.png) | ![Queue page](docs/desktop-queue.png) |
@@ -48,17 +50,30 @@ target and survives leaving the app.
 | ![Settings page](docs/desktop-settings.png) | ![Deep Ocean theme](docs/desktop-theme.png) |
 | <sub><b>Settings</b> — output, downloads, engine</sub> | <sub><b>Themes</b> — Deep Ocean applied live</sub> |
 
-> Desktop build shown. The Android app uses the same eight palettes and the same
-> four sections, laid out for a phone with a bottom navigation bar.
+### Android
+
+| | |
+|:--:|:--:|
+| <img src="docs/mobile-download.png" width="300" alt="Android download page"> | <img src="docs/mobile-settings.png" width="300" alt="Android settings page"> |
+| <sub><b>Download</b> — same format chips, touch layout</sub> | <sub><b>Settings</b> — themes, proxy, embedding</sub> |
+
+Both editions share the eight palettes and the four sections; the Android build
+uses a bottom navigation bar and full-width cards.
 
 ## Download
 
 Builds are attached to the repository's **Releases** page:
 
-| Edition | File | Size |
-| --- | --- | --- |
-| Windows | `TubeForge-Setup-1.0.8.exe` | 95 MB |
-| Android | `TubeForge-Android-1.0.1.apk` | 42 MB |
+| Edition | File | Size | SHA-256 |
+| --- | --- | --- | --- |
+| Windows | `TubeForge-Setup-1.0.8.exe` | 95 MB | `8E75C56D9B010052E57AEAF58446CF64B2CDD149260BFB1AAC52B07CD9F28D71` |
+| Android | `TubeForge-Android-1.0.1.apk` | 42 MB | `AD07196756CF0897F75406B0BCCC9DF94DE3E137E540F2D8537BA9372D6DC1C5` |
+
+Verify an APK before installing:
+
+```powershell
+Get-FileHash .\TubeForge-Android-1.0.1.apk -Algorithm SHA256
+```
 
 Neither build has a paid code-signing certificate, so Windows SmartScreen and Android
 Play Protect may warn that the publisher is unknown. That is expected for self-built
@@ -135,6 +150,8 @@ Video quality: **Best available**, then 2160p, 1440p, 1080p, 720p, 480p or 360p
 - **Plain-language error hints** mapped from engine output — private video, region
   block, bot check, HTTP 403, out of storage, connection timeout and so on.
 - One-tap **Update yt-dlp** in Settings (fixes most engine breakages after site changes).
+- **Licences built in** — GPL-3.0 plus every bundled component's notice ships inside
+  the APK and is readable from **Settings → About → Open-source licences**.
 
 ## Desktop (Windows)
 
@@ -162,6 +179,7 @@ your downloaded media.
 ### Build from source
 
 ```powershell
+cd desktop
 python -m pip install -r requirements.txt
 python run.py
 ```
@@ -174,7 +192,11 @@ Python 3.10+ and Windows. Requires the 64-bit CPython build.
 ```
 
 `build_installer.ps1` needs [Inno Setup 6](https://jrsoftware.org/isinfo.php) and the
-ffmpeg binaries in `vendor\ffmpeg\bin`. The icon can be regenerated with
+ffmpeg binaries in `vendor\ffmpeg\bin`. **The 185 MB of ffmpeg binaries are not
+committed.** Download a Windows x64 *GPL shared* build from
+[BtbN/FFmpeg-Builds](https://github.com/BtbN/FFmpeg-Builds/releases) (the release used
+`N-128718-gb2b543c079`, `--enable-gpl --enable-version3`) and drop its `bin\` and
+`LICENSE.txt` into `desktop\vendor\ffmpeg\`. The icon can be regenerated with
 `python tools\make_icon.py`.
 
 Diagnostics in a packaged build (JSON written to `%TEMP%`):
@@ -217,12 +239,12 @@ permission. Downloads are staged in the app cache and removed once published.
 
 ### Build from source
 
-Requirements: **JDK 17**, Android SDK with platform/build-tools 35, Gradle 8.11.1.
-Create `local.properties` with `sdk.dir=…` or set `ANDROID_HOME`.
+Requirements: **JDK 17**, Android SDK with platform/build-tools 35. The Gradle 8.11.1
+wrapper is included. Create `local.properties` with `sdk.dir=…` or set `ANDROID_HOME`.
 
 ```bash
-# from the android/ folder
-gradle assembleRelease
+cd mobile
+./gradlew assembleRelease        # Windows: gradlew.bat assembleRelease
 # -> app/build/outputs/apk/release/app-release.apk
 ```
 
@@ -246,14 +268,23 @@ Playlists behave the same on both editions: only the first item is used.
 This README works for a single repository holding both editions:
 
 ```
-README.md            this file
-docs/                screenshots used above
-desktop/             PySide6 app (run.py, app/, installer/, tools/)
-android/             Kotlin app (app/, tools/, gradle files)
+README.md               this file
+RELEASE-NOTES.md        text for the GitHub Release body
+PUBLISHING.md           step-by-step push + release checklist
+LICENSE                 GPL-3.0 full text
+THIRD-PARTY-NOTICES.md  every bundled component, version, licence, source
+PRIVACY.md              what the app talks to and stores
+.gitignore              keeps keystores, local paths and build output out of git
+.gitattributes          line endings (gradlew stays LF)
+docs/                   screenshots used above
+desktop/                PySide6 app (run.py, app/, installer/, tools/)
+mobile/                 Kotlin app (gradlew, app/src, tools/)
+releases/               the two installers to attach to a GitHub Release (not committed)
 ```
 
-If you keep two repositories instead, copy this README into each one, keep the
-`docs/` folder next to it, and link the other repository from the header.
+If you keep two repositories instead, copy this README, `LICENSE`,
+`THIRD-PARTY-NOTICES.md`, `PRIVACY.md` and `docs/` into each repo root, and link the
+other repository from the header.
 
 ## Troubleshooting
 
@@ -266,20 +297,69 @@ If you keep two repositories instead, copy this README into each one, keep the
 | Android downloads stall in the background | Allow notifications for TubeForge so the progress notification stays visible — some OEM builds are aggressive about stopping services whose notification is hidden. Also exclude TubeForge from battery optimisation. |
 | Files "not showing up" on Android | They are in `Download/TubeForge`. Some gallery apps need a refresh; a file manager will see them immediately. |
 
-## Credits and licence
+## Licence
 
-- Download engine: [yt-dlp](https://github.com/yt-dlp/yt-dlp) (Unlicense).
-- Android engine: [youtubedl-android](https://github.com/JunkFood02/youtubedl-android)
-  by JunkFood02 and contributors (**GPL-3.0**), bundling CPython, yt-dlp and ffmpeg.
-- Media conversion: [ffmpeg](https://ffmpeg.org/) — see the bundled build for its licence.
-- Desktop UI: [Qt for Python / PySide6](https://doc.qt.io/qtforpython-6/) (LGPLv3).
-- Browser impersonation: [curl_cffi](https://github.com/lexiforest/curl_cffi) (MIT).
-- Tags and cover art: [mutagen](https://mutagen.readthedocs.io/) (GPL-2.0+).
-- Android UI: AndroidX + Material Components (Apache-2.0).
+TubeForge is released under the **GNU General Public License v3.0** — see
+[`LICENSE`](LICENSE). That is not a preference: the Android build links
+[youtubedl-android](https://github.com/JunkFood02/youtubedl-android) (GPL-3.0) and both
+builds ship a **GPL-enabled ffmpeg**, so the combined work has to be GPL-3.0.
 
-TubeForge's own code is distributed under the **GPL-3.0**, because the Android build
-links a GPL-3.0 engine. If you publish binaries, keep the source available. Include
-the full license text in a `LICENSE` file when you publish the repository.
+In short, you may use, study, share and modify it; if you distribute a build, you must
+publish the source under the same licence.
 
-**TubeForge is not affiliated with YouTube, Google, or any site it can download from.**
-Only save content you have the right to keep.
+### Third-party components
+
+The full list, with versions, licences and upstream links, is in
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md). The highlights:
+
+| Component | Licence |
+| --- | --- |
+| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | Unlicense |
+| [youtubedl-android](https://github.com/JunkFood02/youtubedl-android) (Android engine, bundles CPython + yt-dlp + ffmpeg) | GPL-3.0 |
+| [ffmpeg](https://ffmpeg.org/) — desktop `N-128718-gb2b543c079`, `--enable-gpl --enable-version3`; Android Termux build | GPL-3.0 |
+| [PySide6 / Qt 6](https://doc.qt.io/qtforpython-6/) (desktop UI) | LGPL-3.0 |
+| [mutagen](https://mutagen.readthedocs.io/) (tags, cover art) | GPL-2.0-or-later |
+| [curl_cffi](https://github.com/lexiforest/curl_cffi) (browser impersonation) | MIT |
+| [certifi](https://github.com/certifi/python-certifi) | MPL-2.0 |
+| AndroidX + Material Components + Kotlin coroutines | Apache-2.0 |
+
+On Android the same texts ship inside the APK
+(`assets/licences/NOTICES.txt`) and are readable from **Settings → About →
+Open-source licences**. Qt/PySide6 is bundled unmodified; the published source and
+build scripts let anyone swap in a patched Qt and relink.
+
+Source for every binary is published in this repository at the release tag, and the
+upstream commits for ffmpeg/yt-dlp/youtubedl-android are pinned in
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md) — that is the GPL-3.0 §6 written
+offer.
+
+## Privacy
+
+No accounts, no analytics, no telemetry, no ads, no author-operated server. Requests go
+only to the site you download from (plus GitHub for **Update yt-dlp**), and browser
+cookies stay on your machine. Details: [`PRIVACY.md`](PRIVACY.md).
+
+## Legal and fair use
+
+**TubeForge is not affiliated with, endorsed by, or sponsored by YouTube, Google LLC,
+or any of the sites it can download from.** "YouTube" is a trademark of Google LLC and
+is used here only to describe compatibility.
+
+The tool is a general-purpose downloader, like a web browser's "save as". What you do
+with it is your responsibility:
+
+- Downloading a video does not grant you a licence to it. Copyright stays with the
+  rightsholder. Keep personal copies only where your local law allows it, and never
+  redistribute, re-upload or monetise someone else's work.
+- Downloading may violate a site's **Terms of Service** even where copyright law
+  permits it. That is a contract question, not a copyright one, and it is between you
+  and the site.
+- Do not use it to bypass paywalls, DRM, or access controls. The app has no DRM
+  circumvention of any kind, and it cannot download paid or protected streams.
+- If you host a build, respond to valid DMCA/notice-and-takedown requests for content
+  *you* host. TubeForge hosts no media and contains no catalogue.
+
+If you plan to distribute this in a store (Google Play, Microsoft Store) or
+commercially, get legal advice first: store policies on downloader apps are stricter
+than the GPL, and the app's GPL-3.0 engine rules out proprietary redistribution.
+
